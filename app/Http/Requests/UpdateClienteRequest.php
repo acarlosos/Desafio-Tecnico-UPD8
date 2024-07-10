@@ -18,17 +18,17 @@ class UpdateClienteRequest extends BaseRequest
     {
         return [
             'cpf' =>[
-                'required',
+                'nullable',
                 'min:11',
                 'max:11',
                 Rule::unique('clientes')->ignore($this->cliente),
             ],
-            'nome' => 'required|max:255',
-            'data_nascimento' => 'required|date',
-            'sexo' => ['required',new Enum(SexoEnum::class)],
-            'endereco' => 'required|max:255',
-            'cidade_id' => 'required|int',
-            'uf' => ['required',new Enum(UfEnum::class)],
+            'nome' => 'nullable|max:255',
+            'data_nascimento' => 'nullable|date',
+            'sexo' => ['nullable',new Enum(SexoEnum::class)],
+            'endereco' => 'nullable|max:255',
+            'cidade_id' => 'nullable|int',
+            'uf' => ['nullable',new Enum(UfEnum::class)],
         ];
     }
 }

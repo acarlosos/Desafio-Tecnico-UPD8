@@ -7,7 +7,7 @@ abstract class BaseRepository
     protected $model;
     public function index()
     {
-        return $this->model->orderBy('uf')->get();
+        return $this->model->get();
     }
 
     public function create($data)
@@ -34,7 +34,7 @@ abstract class BaseRepository
     {
         $this->model = $this->show($id);
         if($this->model->delete()){
-            return "Resource has deleted";
+            return "The resource was deleted successfully";
         }else{
             throw new \Exception("Error Processing Request", 400);
         }
