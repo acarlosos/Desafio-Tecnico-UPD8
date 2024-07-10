@@ -21,7 +21,7 @@ use Illuminate\Routing\Controller as BaseController;
  *      )
  * )
  *  @OA\Server(
- *      url="http://desafioupd8.teste/api",
+ *      url=L5_SWAGGER_CONST_HOST,
  *      description="local",
  *  )
  */

@@ -1,5 +1,74 @@
 # Desafio Tecnico
 
+### Clonar o projeto
+```
+$ git clone git@github.com:acarlosos/Desafio-Tecnico-UPD8.git
+```
+### Copiar o arquivo de configuração .env-example
+```
+$ cp .env.example .env
+```
+### Em seguida, utilize o composer para montar os diretórios que você precisará no projeto:
+```
+$ composer install
+```
+### Você pode agora modificar o arquivo .env para incluir detalhes específicos sobre sua configuração de banco de dados.
+```
+$ nano .env
+```
+- Encontre o bloco que especifica o DB_CONNECTION e atualize-o para refletir as especificidades da sua configuração. Você modificará os seguintes campos:
+- O DB_HOST IP do banco de dados.
+- O DB_DATABASE nome da sua base de dados.
+- O DB_USERNAME o nome de usuário que você usa para se conectar na sua base de dados.
+- O DB_PASSWORD será a senha segura que você usa para esta conta de usuário.
+
+```
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=laraveluser
+DB_PASSWORD=secret
+```
+### Migrando dados
+- Primeiramente, teste a conexão com o MySQL executando o comando Laravel artisan migrate, que cria uma tabela migrations no banco de dados
+```
+php artisan migrate
+```
+```
+Output
+
+Migration table created successfully.
+Migrating: 2014_10_12_000000_create_users_table
+Migrated:  2014_10_12_000000_create_users_table (47.26ms)
+Migrating: 2014_10_12_100000_create_password_resets_table
+Migrated:  2014_10_12_100000_create_password_resets_table (79.91ms)
+Migrating: 2019_08_19_000000_create_failed_jobs_table
+Migrated:  2019_08_19_000000_create_failed_jobs_table (50.01ms)
+Migrating: 2019_12_14_000001_create_personal_access_tokens_table
+Migrated:  2019_12_14_000001_create_personal_access_tokens_table (27.54ms)
+Migrating: 2024_07_09_141658_create_cidades_table
+Migrated:  2024_07_09_141658_create_cidades_table (14.31ms)
+Migrating: 2024_07_09_142711_create_clientes_table
+Migrated:  2024_07_09_142711_create_clientes_table (59.90ms)
+Migrating: 2024_07_09_191317_create_representantes_table
+Migrated:  2024_07_09_191317_create_representantes_table (11.28ms)
+Migrating: 2024_07_09_191515_cidades_representantes
+Migrated:  2024_07_09_191515_cidades_representantes (63.81ms)
+```
+
+- Se tudo correu bem agora pode executar o Seed
+```
+php artisan db:seed
+```
+```
+Output
+
+Seeding: Database\Seeders\CidadesSeed
+Seeded:  Database\Seeders\CidadesSeed (2,298.16ms)
+Database seeding completed successfully.
+```
+
 ## Swagger
 
 ```
