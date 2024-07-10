@@ -39,6 +39,7 @@ Route::controller(ClienteController::class)->prefix('cliente')->name('cliente.')
     Route::get('/{cliente}', 'show')->name('show');
     Route::put('/{cliente}', 'update')->name('update');
     Route::delete('/{cliente}', 'destroy')->name('delete');
+
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

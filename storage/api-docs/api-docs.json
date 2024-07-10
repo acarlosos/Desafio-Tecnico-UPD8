@@ -481,6 +481,50 @@
                 "summary": "Return clientes",
                 "description": "Return clientes",
                 "operationId": "cliente-index",
+                "parameters": [
+                    {
+                        "name": "nome",
+                        "in": "query",
+                        "description": "nome",
+                        "required": false
+                    },
+                    {
+                        "name": "cpf",
+                        "in": "query",
+                        "description": "cpf",
+                        "required": false
+                    },
+                    {
+                        "name": "cidade_id",
+                        "in": "query",
+                        "description": "cidade_id",
+                        "required": false
+                    },
+                    {
+                        "name": "data_nascimento",
+                        "in": "query",
+                        "description": "data_nascimento",
+                        "required": false
+                    },
+                    {
+                        "name": "sexo",
+                        "in": "query",
+                        "description": "sexo",
+                        "required": false
+                    },
+                    {
+                        "name": "uf",
+                        "in": "query",
+                        "description": "uf",
+                        "required": false
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page Number",
+                        "required": false
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -494,7 +538,11 @@
                                         },
                                         "data": {
                                             "properties": {
-                                                "types": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": "2"
+                                                },
+                                                "data": {
                                                     "type": "array",
                                                     "items": {
                                                         "properties": {
@@ -545,6 +593,66 @@
                                                         },
                                                         "type": "object"
                                                     }
+                                                },
+                                                "first_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://desafioupd8.teste/api/cliente?sexo=masculino&per_page=2&page=1"
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "last_page_url": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": "null"
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "&laquo; Previous"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": "false"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "next_page_url": {
+                                                    "type": "string",
+                                                    "example": "null"
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "http://desafioupd8.teste/api/cliente"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": "10"
+                                                },
+                                                "prev_page_url": {
+                                                    "type": "string",
+                                                    "example": "null"
+                                                },
+                                                "to": {
+                                                    "type": "string",
+                                                    "example": "2"
+                                                },
+                                                "total": {
+                                                    "type": "string",
+                                                    "example": "2"
                                                 }
                                             },
                                             "type": "object"

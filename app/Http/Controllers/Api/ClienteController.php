@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;
 use App\Repository\ClienteRepository;
+use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
@@ -18,54 +19,114 @@ class ClienteController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     * @OA\Get(
-     * path="/cliente",
-     * summary="Return clientes",
-     * description="Return clientes",
-     * operationId="cliente-index",
-     * tags={"Cliente"},
-     * @OA\Response(
-     *    response=200,
-     *    description="Success",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="success", type="boolean", example="true"),
-        *       @OA\Property(property="data", type="object",
-        *           @OA\Property(property="types", type="array",
-        *               @OA\Items(
-        *                   @OA\Property(property="id", type="integer", example="1"),
-        *                   @OA\Property(property="cidade_id", type="integer", example="2"),
-        *                   @OA\Property(property="cpf", type="string", example="99999999954"),
-        *                   @OA\Property(property="nome", type="string", example="Pedro Oliveira"),
-        *                   @OA\Property(property="data_nascimento", type="date", example="1982-07-03T00:00:00.000000Z"),
-        *                   @OA\Property(property="sexo", type="enum", example="masculino"),
-        *                   @OA\Property(property="endereco", type="string", example="Rua Alves cardoso 144"),
-        *                   @OA\Property(property="created_at", type="date", example="2024-07-09T22:22:07.000000Z"),
-        *                   @OA\Property(property="updated_at", type="date", example="2024-07-09T22:22:07.000000Z"),
-        *                   @OA\Property(property="deleted_at", type="date", example="null"),
-        *               )
-        *           )
-        *       ),
+     *  @OA\Get(
+     *      path="/cliente",
+     *      summary="Return clientes",
+     *      description="Return clientes",
+     *      operationId="cliente-index",
+     *      tags={"Cliente"},
+     *      @OA\Parameter(
+     *          name="nome",
+     *          in="query",
+     *          description="nome",
+     *         required=false,
+     *      ),
+     *      @OA\Parameter(
+     *          name="cpf",
+     *          in="query",
+     *          description="cpf",
+     *         required=false,
+     *      ),
+     *      @OA\Parameter(
+     *          name="cidade_id",
+     *          in="query",
+     *          description="cidade_id",
+     *         required=false,
+     *      ),
+     *      @OA\Parameter(
+     *          name="data_nascimento",
+     *          in="query",
+     *          description="data_nascimento",
+     *         required=false,
+     *      ),
+     *      @OA\Parameter(
+     *          name="sexo",
+     *          in="query",
+     *          description="sexo",
+     *         required=false,
+     *      ),
+     *      @OA\Parameter(
+     *          name="uf",
+     *          in="query",
+     *          description="uf",
+     *         required=false,
+     *      ),
+     *      @OA\Parameter(
+     *          name="page",
+     *          in="query",
+     *          description="Page Number",
+     *         required=false,
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="success", type="boolean", example="true"),
+     *              @OA\Property(property="data", type="object",
+     *                  @OA\Property(property="current_page", type="integer", example="2"),
+     *                  @OA\Property(property="data", type="array",
+     *                      @OA\Items(
+     *                          @OA\Property(property="id", type="integer", example="1"),
+     *                          @OA\Property(property="cidade_id", type="integer", example="2"),
+     *                          @OA\Property(property="cpf", type="string", example="99999999954"),
+     *                          @OA\Property(property="nome", type="string", example="Pedro Oliveira"),
+     *                          @OA\Property(property="data_nascimento", type="date", example="1982-07-03T00:00:00.000000Z"),
+     *                          @OA\Property(property="sexo", type="enum", example="masculino"),
+     *                          @OA\Property(property="endereco", type="string", example="Rua Alves cardoso 144"),
+     *                          @OA\Property(property="created_at", type="date", example="2024-07-09T22:22:07.000000Z"),
+     *                          @OA\Property(property="updated_at", type="date", example="2024-07-09T22:22:07.000000Z"),
+     *                          @OA\Property(property="deleted_at", type="date", example="null"),
+     *                      )
+     *                  ),
+     *                  @OA\Property(property="first_page_url", type="string", example="http://desafioupd8.teste/api/cliente?sexo=masculino&per_page=2&page=1"),
+     *                  @OA\Property(property="from", type="integer", example="1"),
+     *                  @OA\Property(property="last_page", type="integer", example="1"),
+     *                  @OA\Property(property="last_page_url", type="integer", example="1"),
+     *                  @OA\Property(property="links", type="array",
+     *                      @OA\Items(
+     *                          @OA\Property(property="url", type="string", example="null"),
+     *                          @OA\Property(property="label", type="string", example="&laquo; Previous"),
+     *                          @OA\Property(property="active", type="boolean", example="false"),
+     *                      ),
+     *                  ),
+     *                  @OA\Property(property="next_page_url", type="string", example="null"),
+     *                  @OA\Property(property="path", type="string", example="http://desafioupd8.teste/api/cliente"),
+     *                  @OA\Property(property="per_page", type="integer", example="10"),
+     *                  @OA\Property(property="prev_page_url", type="string", example="null"),
+     *                  @OA\Property(property="to", type="string", example="2"),
+     *                  @OA\Property(property="total", type="string", example="2"),
+     *          ),
      *        )
      *     ),
-     *  @OA\Response(
-     *    response=204,
-     *    description="Wrong error",
-     *    @OA\JsonContent(
-     *       @OA\Property(property="success", type="boolean", example="false"),
-     *       @OA\Property(property="message", type="string", example="Sorry, wrong error. Please try again")
+     *      @OA\Response(
+     *          response=204,
+     *          description="Wrong error",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="success", type="boolean", example="false"),
+     *              @OA\Property(property="message", type="string", example="Sorry, wrong error. Please try again")
      *        )
      *     ),
      *  )
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
 
-            $data = $this->repository->index();
+            $data = $this->repository->search($request->all());
             return response()->json( ['success' => true, 'data' => $data] , 200);
         } catch (\Exception $th) {
-             return response()->json( ['success' => false, 'message' => "Validation errors", 'data' => [] ] , 204);
+            return response()->json( ['success' => false, 'message' => "Validation errors", 'data' => [] ] , 204);
         }
     }
 
@@ -319,4 +380,5 @@ class ClienteController extends Controller
             return response()->json( ['success' => false, 'message' => "Validation errors", 'data' => [] ] , 204);
         }
     }
+
 }
