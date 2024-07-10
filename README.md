@@ -1,7 +1,12 @@
 # Desafio Tecnico
-- [Swagger][/api/documentation]
 
-- Gerar um script SQL que a partir do ID do cliente, retorne todos os representantes que podem atendê-lo.
+## Swagger
+
+```
+Disponível em /api/documentation
+```
+
+## Gerar um script SQL que a partir do ID do cliente, retorne todos os representantes que podem atendê-lo.
 ```
     SELECT r.*
     FROM clientes c
@@ -10,7 +15,7 @@
     WHERE c.id = ?;
 ```
 
-- Gerar um script SQL que retorne todos os representantes de uma determinada cidade.
+## Gerar um script SQL que retorne todos os representantes de uma determinada cidade.
 ```
     SELECT r.*
     FROM representantes r
@@ -18,7 +23,7 @@
     WHERE cr.cidade_id = ?;
 ```
 
-- Disponibilizar um arquivo com o DDL da base completa.
+## Disponibilizar um arquivo com o DDL da base completa.
 ```
 create schema desafioupd8 collate utf8mb4_0900_ai_ci;
 create table cidades (
